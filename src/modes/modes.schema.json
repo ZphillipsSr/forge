@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "forge:modes.schema.v0.1",
+  "title": "Forge Modes Schema",
+  "type": "object",
+  "required": ["version", "modes"],
+  "properties": {
+    "version": { "type": "string", "enum": ["0.1"] },
+    "modes": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/mode" }
+    }
+  },
+  "$defs": {
+    "mode": {
+      "type": "object",
+      "required": ["id", "name", "tier", "capabilities"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "name": { "type": "string" },
+        "tier": {
+          "type": "string",
+          "enum": ["free", "creator", "pro", "operator"]
+        },
+        "description": { "type": "string" },
+        "capabilities": {
+          "type": "object",
+          "required": ["ui", "bridge", "intents"],
+          "properties": {
+            "ui": {
+              "type": "object",
+              "required": ["surfaces"],
+              "properties": {
+                "surfaces": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": ["home", "packages", "intents", "logs", "settings", "profiles"]
+                  }
+                }
+              }
+            },
+            "bridge": {
+              "type": "object",
+              "required": ["allowedRoutes"],
+              "properties": {
+                "allowedRoutes": {
+                  "type": "array",
+                  "items": { "type": "string" }
+                }
+              }
+            },
+            "intents": {
+              "type": "object",
+              "required": ["allowedTypes", "requirePreview", "requireConfirmForApply"],
+              "properties": {
+                "allowedTypes": {
+                  "type": "array",
+                  "items": { "type": "string" }
+                },
+                "requirePreview": { "type": "boolean" },
+                "requireConfirmForApply": { "type": "boolean" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
