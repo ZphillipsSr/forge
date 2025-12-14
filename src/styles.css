@@ -1,9 +1,122 @@
+:root {
+  --bg-color: #f4f4f4;
+  --text-color: #333;
+  --header-bg: #fff;
+  --card-bg: #fff;
+  --border-color: #ddd;
+  --accent-color: #007bff;
+}
+
+body.theme-dark {
+  --bg-color: #1a1a1a;
+  --text-color: #e0e0e0;
+  --header-bg: #2d2d2d;
+  --card-bg: #2d2d2d;
+  --border-color: #444;
+  --accent-color: #4da3ff;
+}
+
+body.theme-light {
+  /* Default variables are already light-ish, but explicit overrides here if needed */
+  --bg-color: #f4f4f4;
+  --text-color: #333;
+  --header-bg: #fff;
+  --card-bg: #fff;
+  --border-color: #ddd;
+  --accent-color: #007bff;
+}
+
 body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f4f4f4;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Cinematic Flash Animation */
+@keyframes whiteFlash {
+  0% { opacity: 0; }
+  10% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.flash-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: white;
+  pointer-events: none;
+  z-index: 9999;
+  animation: whiteFlash 1s ease-out forwards;
+}
+
+/* Video Container */
+.video-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+  z-index: 5000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.video-container video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Theme Select Page */
+.theme-select-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  gap: 2rem;
+  background: #111;
+  color: #fff;
+}
+
+.theme-options {
+  display: flex;
+  gap: 2rem;
+}
+
+.theme-card {
+  width: 150px;
+  height: 200px;
+  border: 2px solid #333;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s, border-color 0.2s;
+  background: #222;
+}
+
+.theme-card:hover {
+  transform: scale(1.05);
+  border-color: #fff;
+}
+
+.theme-card.light {
+  background: #f4f4f4;
   color: #333;
+}
+
+.theme-card.dark {
+  background: #1a1a1a;
+  color: #fff;
 }
 
 #root {
